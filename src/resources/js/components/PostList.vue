@@ -3,6 +3,8 @@
     <h2>Blog</h2>
     <p>Hello world!!</p>
 
+    <router-link to="/post">new</router-link>
+
     <div class="post" v-for="post in postsList" :key="post.posts_id">
       <p>title：<br />{{ post.title }}</p>
       <p>content：<br />{{ post.content }}</p>
