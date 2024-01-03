@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Posts;
+use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
 
     public function getList(Request $request)
     {
-        $posts = Posts::all();
+        $postsData = Posts::all()->toArray();
 
-        return view('posts.index');
+        return response()->json($postsData);
     }
 }

@@ -4,9 +4,9 @@ import PostList from '../components/PostList.vue';
 const routes = [
   {
     path: '/',
-    name: 'PostList',
+    name: 'postList',
     component: PostList,
-  },
+  }
 ];
 
 const router = createRouter({
