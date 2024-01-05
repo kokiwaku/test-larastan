@@ -18,18 +18,14 @@
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { fetchData } from "@/js/libs/fetchApi.js";
+
 const router = useRouter();
 
 const postsList = ref([]);
 
 const getPostsList = async () => {
-  try {
-    const response = await fetch("/api/post/getList");
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
+  return await fetchData("/api/post/getList");
 };
 
 const edit = (postsId) => {
@@ -40,9 +36,7 @@ const remove = async (postsId) => {
   if (confirm("削除して良いですか?")) {
     try {
       const query = new URLSearchParams({ postsId: postsId });
-      await fetch(`/api/post/delete?${query}`, {
-        method: "POST",
-      });
+      await fetchData(`/api/post/delete?${query}`, "POST");
     } catch (error) {
       console.error("Fetch Error:", error);
       throw error;

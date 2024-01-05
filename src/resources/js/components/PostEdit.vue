@@ -20,6 +20,7 @@
 import { onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
+import { fetchData } from "@/js/libs/fetchApi.js";
 
 const props = defineProps({
   postsId: String,
@@ -36,13 +37,7 @@ const submit = async () => {
     body.postsId = props.postsId;
   }
   try {
-    await fetch("/api/post/save", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    await fetchData("/api/post/save", "POST", body);
   } catch (error) {
     console.error("Fetch Error:", error);
     throw error;
@@ -55,9 +50,7 @@ const submit = async () => {
 const getPostBy = async (postsId) => {
   try {
     const query = new URLSearchParams({ postsId: postsId });
-    const response = await fetch(`/api/post/getBy?${query}`);
-    const data = await response.json();
-    return data;
+    return await fetchData(`/api/post/getBy?${query}`);
   } catch (error) {
     console.error("Fetch Error:", error);
     throw error;
