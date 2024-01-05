@@ -13,6 +13,12 @@ const routes = [
     name: 'post',
     component: PostEdit,
   },
+  {
+    path: '/post/:postsId',
+    name: 'postWithId',
+    component: PostEdit,
+    props: true,
+  },
 ];
 
 const router = createRouter({
