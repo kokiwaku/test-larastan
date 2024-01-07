@@ -8,7 +8,10 @@ use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getList(Request $request)
     {
         $postsData = Posts::all()->toArray();
@@ -16,13 +19,25 @@ class PostsController extends Controller
         return response()->json($postsData);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getBy(Request $request)
     {
         $postsData = Posts::find($request->input('postsId'));
+        $result = [];
+        if ($postsData !== null) {
+            $result = $postsData->toArray();
+        }
 
-        return response()->json($postsData->toArray());
+        return response()->json($result);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function save(Request $request)
     {
         $posts = match ($postsId = $request->input('postsId')) {
@@ -36,6 +51,10 @@ class PostsController extends Controller
         return response()->json(['result' => true]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|null
+     */
     public function delete(Request $request)
     {
         $postsData = Posts::find($request->input('postsId'));
